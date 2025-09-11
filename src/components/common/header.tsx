@@ -64,7 +64,7 @@ export const Header = () => {
                         </div>
                         <div className="flex flex-col min-w-0 flex-1">
                             {/* Desktop & Tablet Title */}
-                            <span className="hidden sm:block text-sm md:text-lg lg:text-xl xl:text-2xl font-extrabold text-[#12100C] tracking-tight leading-tight">
+                            <span className="hidden sm:block text-sm md:text-lg lg:text-xl xl:text-xl font-extrabold text-[#12100C] tracking-tight leading-tight">
                                 SARASWATI DEGREE VIDYA MANDIR
                             </span>
 
@@ -94,7 +94,7 @@ export const Header = () => {
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden lg:flex items-center space-x-2" role="navigation">
+                    <nav className="hidden lg:flex items-center space-x-1" role="navigation">
                         {navigation.map((item) => (
                             <div
                                 key={item.name}
