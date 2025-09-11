@@ -31,7 +31,7 @@ export const Header = () => {
     };
 
     // Check if any child route is active for parent highlighting
-    const isChildActive = (children) => {
+    const isChildActive = (children: any) => {
         if (!children) return false;
         return children.some(child => isActive(child.to));
     };
@@ -99,7 +99,7 @@ export const Header = () => {
                             <div
                                 key={item.name}
                                 className="relative"
-                                onMouseEnter={() => handleMouseEnter(item.name)}
+                                onMouseEnter={() => handleMouseEnter(item?.name)}
                                 onMouseLeave={handleMouseLeave}
                             >
                                 {item.children ? (
