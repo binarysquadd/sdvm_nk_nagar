@@ -1,5 +1,37 @@
 @import "tailwindcss";
 
+
+/* Slim scrollbar */
+::-webkit-scrollbar {
+    width: 4px;   /* very small */
+    height: 4px;  /* for horizontal */
+}
+
+/* Transparent track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Orange thumb */
+::-webkit-scrollbar-thumb {
+    background: #FF8A00;
+    border-radius: 9999px; /* pill shape */
+}
+
+/* Hover effect */
+::-webkit-scrollbar-thumb:hover {
+    background: #e67800;
+}
+
+/* Firefox support */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #FF8A00 transparent;
+}
+
+
+
+
 /*!* ==========================================*/
 /*   INDEX.CSS - Global Styles & Variables*/
 /*   Saraswati Degree Vidya Mandir*/

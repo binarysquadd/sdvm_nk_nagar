@@ -1,13 +1,31 @@
 import {Link, useLocation} from "react-router-dom";
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import {TextOutdentIcon, XIcon, CaretDownIcon} from '@phosphor-icons/react'
+
+type NavChild = {
+    name: string;
+    to: string;
+};
+
+type NavItem =
+    | { name: string; to: string; children?: never } // link item
+    | { name: string; to?: undefined; children: NavChild[] };
 
 export const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [activeDropdown, setActiveDropdown] = useState(null);
+    const [activeDropdown, setActiveDropdown] = useState('');
     const location = useLocation();
+    const [scrolled, setScrolled] = useState(false);
 
-    const navigation = [
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 10);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    const navigation: NavItem[] = [
         { name: 'Home', to: '/' },
         { name: 'Degree', children: [
                 {name: 'Computer Science', to: '/computer-science'},
@@ -31,63 +49,84 @@ export const Header = () => {
     };
 
     // Check if any child route is active for parent highlighting
-    const isChildActive = (children: any) => {
+    const isChildActive = (children?: NavChild[]): boolean => {
         if (!children) return false;
-        return children.some(child => isActive(child.to));
+        return children.some(child => isActive(child.to ?? ""));
     };
 
     const handleApplyClick = () => {
         window.open('/apply', '_blank');
     };
 
-    const handleMouseEnter = (itemName) => {
+    const handleMouseEnter = (itemName: string) => {
         setActiveDropdown(itemName);
     };
 
     const handleMouseLeave = () => {
-        setActiveDropdown(null);
+        setActiveDropdown('');
     };
 
     return (
-        <header className='bg-white/95 backdrop-blur-md shadow-lg border-b border-[#999795]/20 sticky top-0 z-50'>
-            <div className='max-w-7xl mx-auto px-6 lg:px-8'>
-                <div className="flex justify-between items-center h-20">
-                    {/* Logo and Title - Responsive */}
-                    <Link to="/" className="flex items-center gap-2 sm:gap-3 md:gap-4 group transition-transform hover:scale-105 min-w-0 flex-1 md:flex-initial">
+        <header
+            className={`sticky top-1 z-50 ${
+                scrolled
+                    ? "mx-auto shadow-2xl border border-white/10 rounded-2xl px-6 bg-transparent lg:bg-white/20 lg:backdrop-blur-xl transition-colors transition-transform transition-shadow duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]"
+                    : "w-full bg-transparent border-none px-0 transition-colors transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]"
+            }`}
+        >
+            <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                <div
+                    className={`flex justify-between items-center ${scrolled ? 'h-20' : 'h-20'} border-none transition-all duration-500`}>
+                    {/* Logo + title */}
+                    <Link to="/"
+                          className="flex items-center gap-2 sm:gap-3 md:gap-4 group transition-transform hover:scale-105 min-w-0 flex-1 md:flex-initial">
                         <div className="relative flex-shrink-0">
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#FF8A00] to-[#FFB45B] rounded-full blur-lg opacity-30 group-hover:opacity-50 transition-opacity"></div>
+                            <div
+                                className="absolute inset-0 bg-gradient-to-br from-[#FF8A00] to-[#FFB45B] rounded-full blur-lg opacity-30 group-hover:opacity-50 transition-opacity"></div>
                             <img
                                 src="/logo.webp"
-                                alt="Saraswati Degree Vidya Mandir Logo"
-                                className="relative h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 object-contain"
+                                alt="Logo"
+                                className={`relative object-contain transition-transform transition-size duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                                    scrolled
+                                        ? 'h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10'
+                                        : 'h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14'
+                                }`}
                             />
                         </div>
                         <div className="flex flex-col min-w-0 flex-1">
                             {/* Desktop & Tablet Title */}
-                            <span className="hidden sm:block text-sm md:text-lg lg:text-xl xl:text-xl font-extrabold text-[#12100C] tracking-tight leading-tight">
+                            <span
+                                className={`hidden sm:block font-extrabold text-[#12100C] tracking-tight leading-tight transition-all duration-500 ${
+                                    scrolled
+                                        ? 'text-sm md:text-base lg:text-lg'
+                                        : 'text-sm md:text-lg lg:text-xl xl:text-xl'
+                                }`}
+                            >
                                 SARASWATI DEGREE VIDYA MANDIR
                             </span>
 
                             {/* Mobile Title - SDVM Only */}
-                            <span className="sm:hidden text-lg font-extrabold text-[#12100C] tracking-tight leading-tight">
+                            <span
+                                className={`sm:hidden font-extrabold text-[#12100C] tracking-tight leading-tight transition-all duration-500 ${
+                                    scrolled ? 'text-base' : 'text-lg'
+                                }`}
+                            >
                                 SDVM
                             </span>
 
                             {/* Address - Hidden on Mobile */}
-                            <div className="hidden sm:flex items-center gap-2 mt-0.5">
-                                <div className="h-0.5 w-6 mt-[2px] md:w-8 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] flex-shrink-0"></div>
-
-                                {/* Desktop Location */}
+                            <div
+                                className={`hidden sm:flex items-center gap-2 mt-0.5 transition-all duration-500 ${scrolled ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'}`}>
+                                <div
+                                    className="hidden md:flex h-0.5 w-6 mt-[2px] md:w-8 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] flex-shrink-0"></div>
                                 <span
                                     className="hidden md:block text-xs lg:text-sm text-[#565451] font-medium truncate">
                                     Neelakantha Nagar, Berhampur, Odisha
                                 </span>
-
-                                <div className="h-0.5 w-6 mt-[2px] md:w-8 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] flex-shrink-0"></div>
-
-                                {/* Tablet Location */}
+                                <div
+                                    className="hidden md:flex h-0.5 w-6 mt-[2px] md:w-8 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] flex-shrink-0"></div>
                                 <span className="md:hidden text-xs text-[#565451] font-medium truncate">
-                                    Berhampur, Odisha
+                                    Neelakantha Nagar, Berhampur, Odisha
                                 </span>
                             </div>
                         </div>
@@ -120,16 +159,18 @@ export const Header = () => {
                                         />
 
                                         {/* Animated underline */}
-                                        <div className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] transition-all duration-300 ${
-                                            isChildActive(item.children) ? 'w-full' : 'w-0 group-hover:w-full'
-                                        }`}></div>
+                                        <div
+                                            className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] transition-all duration-300 ${
+                                                isChildActive(item.children) ? 'w-full' : 'w-0 group-hover:w-full'
+                                            }`}></div>
 
                                         {/* Dropdown Menu */}
-                                        <div className={`absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-[#999795]/10 overflow-hidden transition-all duration-300 ${
-                                            activeDropdown === item.name
-                                                ? 'opacity-100 visible transform translate-y-0'
-                                                : 'opacity-0 invisible transform -translate-y-2'
-                                        }`}>
+                                        <div
+                                            className={`absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-[#999795]/10 overflow-hidden transition-all duration-300 ${
+                                                activeDropdown === item.name
+                                                    ? 'opacity-100 visible transform translate-y-0'
+                                                    : 'opacity-0 invisible transform -translate-y-2'
+                                            }`}>
                                             <div className="py-2">
                                                 {item.children.map((child, index) => (
                                                     <Link
@@ -140,13 +181,14 @@ export const Header = () => {
                                                                 ? 'text-[#FF8A00] bg-gradient-to-r from-[#FF8A00]/10 to-[#FFB45B]/10 border-r-2 border-[#FF8A00]'
                                                                 : 'text-[#565451] hover:text-[#FF8A00]'
                                                         }`}
-                                                        style={{ animationDelay: `${index * 50}ms` }}
+                                                        style={{animationDelay: `${index * 50}ms`}}
                                                     >
-                                                        <div className={`h-1.5 w-1.5 rounded-full mr-3 transition-all duration-200 ${
-                                                            isActive(child.to)
-                                                                ? 'bg-[#FF8A00]'
-                                                                : 'bg-[#999795]/30 group-hover/child:bg-[#FF8A00]'
-                                                        }`}></div>
+                                                        <div
+                                                            className={`h-1.5 w-1.5 rounded-full mr-3 transition-all duration-200 ${
+                                                                isActive(child.to)
+                                                                    ? 'bg-[#FF8A00]'
+                                                                    : 'bg-[#999795]/30 group-hover/child:bg-[#FF8A00]'
+                                                            }`}></div>
                                                         {child.name}
                                                     </Link>
                                                 ))}
@@ -166,9 +208,10 @@ export const Header = () => {
                                         <span className="relative z-10">{item.name}</span>
 
                                         {/* Animated underline */}
-                                        <div className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] transition-all duration-300 ${
-                                            isActive(item.to) ? 'w-full' : 'w-0 group-hover:w-full'
-                                        }`}></div>
+                                        <div
+                                            className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] transition-all duration-300 ${
+                                                isActive(item.to) ? 'w-full' : 'w-0 group-hover:w-full'
+                                            }`}></div>
                                     </Link>
                                 )}
                             </div>
@@ -191,11 +234,14 @@ export const Header = () => {
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             className="lg:hidden relative p-3 text-[#565451] hover:text-[#FF8A00] transition-colors duration-300 group"
                         >
-                            <div className="absolute inset-0 bg-[#F9F9F9] rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></div>
+                            <div
+                                className="absolute inset-0 bg-[#F9F9F9] rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></div>
                             <div className="relative z-10">
                                 {isMenuOpen ?
-                                    <XIcon size={24} className="transform rotate-0 group-hover:rotate-90 transition-transform duration-300" /> :
-                                    <TextOutdentIcon size={24} className="transform rotate-0 group-hover:rotate-12 transition-transform duration-300" />
+                                    <XIcon size={24}
+                                           className="transform rotate-0 group-hover:rotate-90 transition-transform duration-300"/> :
+                                    <TextOutdentIcon size={24}
+                                                     className="transform rotate-0 group-hover:rotate-12 transition-transform duration-300"/>
                                 }
                             </div>
                         </button>
@@ -204,17 +250,24 @@ export const Header = () => {
             </div>
 
             {/* Modern Mobile menu with slide animation */}
-            <div className={`lg:hidden overflow-y-scroll transition-all duration-500 ease-in-out ${
-                isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-            }`}>
-                <div className="bg-gradient-to-br from-[#F9F9F9] to-white border-t border-[#999795]/20">
+            <div
+                className={`lg:hidden overflow-y-scroll scrollbar-hide transition-all duration-500 ease-in-out ${
+                    isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                }`}
+            >
+                <div className={`border-t border-[#999795]/20 ${
+                    scrolled
+                        ? "bg-white/10 backdrop-blur-xl"
+                        : "bg-gradient-to-br from-[#F9F9F9] to-white"
+                }`}>
                     <div className="px-6 py-6 space-y-2">
                         {navigation.map((item, index) => (
                             <div key={item.name}>
                                 {item.children ? (
                                     // Mobile dropdown section
                                     <div>
-                                        <div className="p-4 rounded-2xl font-semibold text-[#FF8A00] bg-gradient-to-r from-[#FF8A00]/10 to-[#FFB45B]/10">
+                                        <div
+                                            className="p-4 rounded-2xl font-semibold text-[#FF8A00] bg-gradient-to-r from-[#FF8A00]/10 to-[#FFB45B]/10">
                                             {item.name}
                                         </div>
                                         <div className="ml-4 mt-2 space-y-1">
@@ -228,7 +281,7 @@ export const Header = () => {
                                                             : 'text-[#565451] hover:bg-white/80 hover:text-[#FF8A00]'
                                                     }`}
                                                     onClick={() => setIsMenuOpen(false)}
-                                                    style={{ animationDelay: `${(index + childIndex) * 50}ms` }}
+                                                    style={{animationDelay: `${(index + childIndex) * 50}ms`}}
                                                 >
                                                     <div className={`h-1 w-1 rounded-full mr-3 ${
                                                         isActive(child.to) ? 'bg-[#FF8A00]' : 'bg-[#999795]/50'
@@ -241,20 +294,18 @@ export const Header = () => {
                                 ) : (
                                     // Regular mobile menu item
                                     <Link
+                                        key={item.name}
                                         to={item.to}
-                                        className={`flex items-center justify-between p-4 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 ${
-                                            isActive(item.to)
-                                                ? 'bg-gradient-to-r from-[#FF8A00]/10 to-[#FFB45B]/10 text-[#FF8A00] border-l-4 border-[#FF8A00]'
-                                                : 'text-[#565451] hover:bg-white/80 hover:text-[#FF8A00]'
-                                        }`}
                                         onClick={() => setIsMenuOpen(false)}
-                                        style={{ animationDelay: `${index * 100}ms` }}
+                                        className={`flex items-center justify-between p-4 rounded-2xl font-semibold transition-all duration-300 ${
+                                            isActive(item.to)
+                                                ? "bg-gradient-to-r from-[#FF8A00]/10 to-[#FFB45B]/10 text-[#FF8A00] border-l-4 border-[#FF8A00]"
+                                                : scrolled
+                                                    ? "text-[#565451] hover:bg-white/20 hover:text-[#FF8A00]"
+                                                    : "text-[#565451] hover:bg-white/80 hover:text-[#FF8A00]"
+                                        }`}
                                     >
-                                        <span className="flex items-center gap-3">
-                                            {isActive(item.to) && <div className="h-2 w-2 bg-[#FF8A00] rounded-full animate-pulse"></div>}
-                                            {item.name}
-                                        </span>
-                                        <div className="h-0.5 w-6 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                        {item.name}
                                     </Link>
                                 )}
                             </div>
@@ -269,13 +320,17 @@ export const Header = () => {
                                 }}
                                 className="w-full relative p-4 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 overflow-hidden group"
                             >
-                                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                                <div
+                                    className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                                 <span className="relative flex items-center justify-center gap-2">
                                     Apply Online Now
                                     <div className="flex space-x-1">
-                                        <div className="h-1 w-1 bg-white rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
-                                        <div className="h-1 w-1 bg-white rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
-                                        <div className="h-1 w-1 bg-white rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
+                                        <div className="h-1 w-1 bg-white rounded-full animate-bounce"
+                                             style={{animationDelay: '0ms'}}></div>
+                                        <div className="h-1 w-1 bg-white rounded-full animate-bounce"
+                                             style={{animationDelay: '150ms'}}></div>
+                                        <div className="h-1 w-1 bg-white rounded-full animate-bounce"
+                                             style={{animationDelay: '300ms'}}></div>
                                     </div>
                                 </span>
                             </button>

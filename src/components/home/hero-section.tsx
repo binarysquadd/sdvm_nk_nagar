@@ -101,8 +101,8 @@ export default function HeroSection() {
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-tight">
                             Welcome to{" "}
                             <span className="bg-gradient-to-r from-[#FFB45B] via-[#FFAE33] to-[#FF8A00] bg-clip-text text-transparent animate-gradient">
-                Saraswati
-              </span>
+                            Saraswati
+                            </span>
                             <br />
                             <span className="text-white/90">Degree Vidya Mandir</span>
                         </h1>
@@ -136,24 +136,24 @@ export default function HeroSection() {
                             <button className="group relative px-8 py-4 bg-white text-[#12100C] font-bold rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 <span className="relative group-hover:text-white transition-colors duration-300">
-                  Explore Programs
-                </span>
+                                    Explore Programs
+                                </span>
                                 <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] group-hover:w-full transition-all duration-300"></div>
                             </button>
 
                             <button className="group relative px-8 py-4 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] text-white font-bold rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                                 <span className="relative flex items-center gap-2">
-                  Apply Now
-                  <svg
-                      className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </span>
+                                Apply Now
+                                <svg
+                                  className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                                </span>
                             </button>
                         </div>
                     </div>
