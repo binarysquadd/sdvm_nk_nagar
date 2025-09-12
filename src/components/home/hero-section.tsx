@@ -10,9 +10,8 @@ export default function HeroSection() {
 
     return (
         <main>
-            <section className="relative bg-orange-50 py-20 overflow-hidden"> {/* 🔸 light orange background */}
+            <section className="relative bg-orange-50 py-20 overflow-hidden">
                 <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
-
                     {/* Background Pattern */}
                     <div className="absolute inset-0 w-full h-full opacity-20">
                         <svg
@@ -111,14 +110,13 @@ export default function HeroSection() {
                                 🎓 Learn • Grow • Succeed
                             </div>
                             <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-                                Transform Your
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500"> Learning</span>
-                                <br />Journey Today
+                                SARASWATI DEGREE
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500"> VIDYA</span> MANDIR
                             </h1>
                         </div>
 
                         <p className="text-lg text-gray-700 max-w-xl mx-auto md:mx-0">
-                            Unlock your potential with our comprehensive online courses, expert instructors,
+                            Unlock your potential with our comprehensive courses, expert instructors,
                             and interactive learning experiences designed for every skill level.
                         </p>
 
