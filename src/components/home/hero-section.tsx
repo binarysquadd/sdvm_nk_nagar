@@ -1,225 +1,171 @@
+import { FacebookLogoIcon, InstagramLogoIcon, TwitterLogoIcon, YoutubeLogoIcon } from "@phosphor-icons/react";
 import { useState, useEffect } from "react";
 
 export default function HeroSection() {
     const [isVisible, setIsVisible] = useState(false);
-    const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
 
     useEffect(() => {
         setIsVisible(true);
-        const handleMouseMove = (e: MouseEvent) => {
-            setMousePosition({
-                x: (e.clientX / window.innerWidth) * 100,
-                y: (e.clientY / window.innerHeight) * 100,
-            });
-        };
-        window.addEventListener("mousemove", handleMouseMove);
-        return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
 
     return (
-        <section className="min-h-screen relative overflow-hidden flex items-center justify-center">
-            {/* Animated Gradient Background */}
-            <div
-                className="absolute inset-0 opacity-90 transition-all duration-1000 ease-out"
-                style={{
-                    background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, 
-            rgba(255, 138, 0, 0.8) 0%, 
-            rgba(255, 174, 51, 0.6) 35%, 
-            rgba(255, 180, 91, 0.4) 70%, 
-            rgba(18, 16, 12, 0.8) 100%)`,
-                }}
-            />
+        <main>
+            <section className="relative bg-orange-50 py-20 overflow-hidden"> {/* 🔸 light orange background */}
+                <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
 
-            {/* Dynamic SVG Background */}
-            <svg
-                className="absolute inset-0 w-full h-full"
-                viewBox="0 0 1000 1000"
-                preserveAspectRatio="xMidYMid slice"
-            >
-                <defs>
-                    <radialGradient id="grad1" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stopColor="rgba(255, 138, 0, 0.3)" />
-                        <stop offset="50%" stopColor="rgba(255, 174, 51, 0.2)" />
-                        <stop offset="100%" stopColor="rgba(255, 180, 91, 0.1)" />
-                    </radialGradient>
-                    <radialGradient id="grad2" cx="30%" cy="70%" r="40%">
-                        <stop offset="0%" stopColor="rgba(255, 180, 91, 0.4)" />
-                        <stop offset="100%" stopColor="rgba(255, 138, 0, 0.1)" />
-                    </radialGradient>
-                </defs>
+                    {/* Background Pattern */}
+                    <div className="absolute inset-0 w-full h-full opacity-20">
+                        <svg
+                            viewBox="0 0 100 100"
+                            className="w-full h-full"
+                            preserveAspectRatio='none'
+                        >
+                            <defs>
+                                <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                                    <path
+                                        d="M 10 0 L 0 0 0 10"
+                                        fill="none"
+                                        stroke="#fb923c"  // orange-400
+                                        strokeWidth="0.1"
+                                    />
+                                </pattern>
+                            </defs>
+                            <rect width="100%" height="100%" fill="url(#grid)" />
+                        </svg>
+                    </div>
 
-                {/* Animated Circles */}
-                <circle cx="200" cy="200" r="150" fill="url(#grad1)" className="animate-float" />
-                <circle cx="800" cy="300" r="100" fill="url(#grad2)" className="animate-float-reverse" />
-                <circle cx="600" cy="700" r="80" fill="url(#grad1)" className="animate-float-slow" />
+                    {/* Floating SVG Shapes */}
+                    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                        {/* Circle 1 */}
+                        <svg className="absolute top-20 left-10 w-16 h-16 text-orange-300 opacity-60 animate-float-slow" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="2"/>
+                        </svg>
 
-                {/* Floating Geometric Shapes */}
-                <polygon
-                    points="100,800 150,750 200,800 150,850"
-                    fill="rgba(255, 174, 51, 0.2)"
-                    className="animate-spin-slow"
-                />
-                <polygon
-                    points="850,100 900,50 950,100 900,150"
-                    fill="rgba(255, 138, 0, 0.3)"
-                    className="animate-bounce-subtle"
-                />
-            </svg>
+                        {/* Triangle 1 */}
+                        <svg className="absolute top-40 right-20 w-12 h-12 text-red-300 opacity-50 animate-float-medium" viewBox="0 0 100 100">
+                            <polygon points="50,15 85,75 15,75" fill="currentColor"/>
+                        </svg>
 
-            {/* Floating Particles */}
-            <div className="absolute inset-0">
-                {[...Array(20)].map((_, i) => (
-                    <div
-                        key={i}
-                        className="absolute w-2 h-2 bg-white/20 rounded-full animate-float"
-                        style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                            animationDelay: `${Math.random() * 5}s`,
-                            animationDuration: `${3 + Math.random() * 4}s`,
-                        }}
-                    />
-                ))}
-            </div>
+                        {/* Circle 2 */}
+                        <svg className="absolute bottom-32 left-20 w-8 h-8 text-yellow-400 opacity-70 animate-float-fast" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="currentColor"/>
+                        </svg>
 
-            {/* Main Content */}
-            <div className="relative z-10 max-w-6xl mx-auto px-6 py-20">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-                    {/* Left Content */}
-                    <div
-                        className={`space-y-8 text-left transform transition-all duration-1000 delay-300 ${
-                            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-                        }`}
-                    >
-                        {/* Badge */}
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
-                            <div className="w-2 h-2 bg-[#FFB45B] rounded-full animate-pulse"></div>
-                            <span className="text-white text-sm font-medium">Excellence Since 1985</span>
+                        {/* Square 1 */}
+                        <svg className="absolute top-60 left-1/3 w-10 h-10 text-orange-400 opacity-40 animate-float-slow" viewBox="0 0 100 100">
+                            <rect x="25" y="25" width="50" height="50" fill="none" stroke="currentColor" strokeWidth="3"/>
+                        </svg>
+
+                        {/* Pentagon */}
+                        <svg className="absolute bottom-20 right-32 w-14 h-14 text-red-400 opacity-50 animate-float-medium" viewBox="0 0 100 100">
+                            <polygon points="50,10 90,35 75,85 25,85 10,35" fill="none" stroke="currentColor" strokeWidth="2"/>
+                        </svg>
+
+                        {/* Small Circle */}
+                        <svg className="absolute top-32 right-40 w-6 h-6 text-orange-500 opacity-60 animate-float-fast" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" fill="currentColor"/>
+                        </svg>
+
+                        {/* Diamond */}
+                        <svg className="absolute bottom-40 left-1/2 w-12 h-12 text-yellow-500 opacity-45 animate-float-slow" viewBox="0 0 100 100">
+                            <polygon points="50,20 80,50 50,80 20,50" fill="currentColor"/>
+                        </svg>
+
+                        {/* Hexagon */}
+                        <svg className="absolute top-16 left-1/2 w-10 h-10 text-red-300 opacity-55 animate-float-medium" viewBox="0 0 100 100">
+                            <polygon points="50,15 85,35 85,65 50,85 15,65 15,35" fill="none" stroke="currentColor" strokeWidth="2"/>
+                        </svg>
+
+                        {/* Large Circle */}
+                        <svg className="absolute bottom-60 right-10 w-20 h-20 text-orange-200 opacity-30 animate-float-slow" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" strokeWidth="1"/>
+                        </svg>
+
+                        {/* Star */}
+                        <svg className="absolute top-80 left-40 w-8 h-8 text-yellow-400 opacity-65 animate-float-fast" viewBox="0 0 100 100">
+                            <polygon points="50,15 61,35 85,35 67,50 73,75 50,60 27,75 33,50 15,35 39,35" fill="currentColor"/>
+                        </svg>
+                    </div>
+
+                    {/* Hero Illustration (placeholder box with corner accents) */}
+                    <div className={`relative w-full md:w-[480px] md:h-[360px] transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+                        <div className="w-full h-full bg-gradient-to-br from-orange-100 to-orange-50 rounded-2xl shadow-lg p-0 relative overflow-hidden">
+                            {/* Corner Decorations */}
+                            <img
+                                src="https://svmberhampur.com/uploads/gallery/media/building_2.jpg"
+                                alt="banner image"
+                                width="580"
+                                height="360"
+                                fetchPriority="high"
+                                className="w-full h-full object-cover rounded-2xl"
+                            />
+                            <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-orange-300 rounded-tl-2xl"></div>
+                            <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-orange-300 rounded-br-2xl"></div>
+                        </div>
+                    </div>
+
+                    {/* Hero Content */}
+                    <div className={`flex-1 text-center md:text-left space-y-6 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+                        <div className="space-y-2">
+                            <div className="inline-block px-3 py-1 bg-orange-100 text-orange-600 text-sm font-medium rounded-full mb-4">
+                                🎓 Learn • Grow • Succeed
+                            </div>
+                            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+                                Transform Your
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500"> Learning</span>
+                                <br />Journey Today
+                            </h1>
                         </div>
 
-                        {/* Main Headline */}
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-tight">
-                            Welcome to{" "}
-                            <span className="bg-gradient-to-r from-[#FFB45B] via-[#FFAE33] to-[#FF8A00] bg-clip-text text-transparent animate-gradient">
-                            Saraswati
-                            </span>
-                            <br />
-                            <span className="text-white/90">Degree Vidya Mandir</span>
-                        </h1>
-
-                        {/* Description */}
-                        <p className="text-xl lg:text-2xl text-white/80 leading-relaxed max-w-2xl">
-                            Empowering minds, shaping futures. Join thousands of students who've achieved their
-                            dreams through our{" "}
-                            <span className="text-[#FFB45B] font-semibold">world-class education</span> and
-                            innovative learning approach.
+                        <p className="text-lg text-gray-700 max-w-xl mx-auto md:mx-0">
+                            Unlock your potential with our comprehensive online courses, expert instructors,
+                            and interactive learning experiences designed for every skill level.
                         </p>
 
                         {/* Stats */}
-                        <div className="grid grid-cols-3 gap-6 py-6">
-                            {[
-                                { number: "5000+", label: "Students" },
-                                { number: "100+", label: "Faculty" },
-                                { number: "50+", label: "Years" },
-                            ].map((stat, index) => (
-                                <div key={index} className="text-center">
-                                    <div className="text-2xl lg:text-3xl font-bold text-[#FFB45B] animate-count">
-                                        {stat.number}
-                                    </div>
-                                    <div className="text-white/70 text-sm font-medium">{stat.label}</div>
-                                </div>
-                            ))}
+                        <div className="flex flex-wrap gap-6 justify-center md:justify-start text-sm text-gray-600 py-4">
+                            <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
+                                <span>10,000+ Students</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                                <span>500+ Courses</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+                                <span>Expert Instructors</span>
+                            </div>
                         </div>
 
-                        {/* CTA Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                            <button className="group relative px-8 py-4 bg-white text-[#12100C] font-bold rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                <span className="relative group-hover:text-white transition-colors duration-300">
-                                    Explore Programs
-                                </span>
-                                <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] group-hover:w-full transition-all duration-300"></div>
-                            </button>
-
-                            <button className="group relative px-8 py-4 bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] text-white font-bold rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                                <span className="relative flex items-center gap-2">
-                                Apply Now
-                                <svg
-                                  className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        {/* CTA Button */}
+                        <div className="flex justify-center md:justify-start">
+                            <button className="group inline-flex items-center gap-2 px-6 py-3 font-medium border border-orange-300 bg-white text-orange-500 rounded-xl shadow-[2px_2px_0px_orange] transition-all hover:bg-orange-500 hover:text-white hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
+                                Discover Now
+                                <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" className="stroke-orange-500 group-hover:stroke-white" />
                                 </svg>
-                                </span>
                             </button>
                         </div>
                     </div>
 
-                    {/* Right Content */}
-                    <div
-                        className={`relative lg:ml-8 transform transition-all duration-1000 delay-500 ${
-                            isVisible ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"
-                        }`}
-                    >
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#FF8A00]/30 via-[#FFAE33]/20 to-[#FFB45B]/30 rounded-3xl blur-3xl animate-pulse-glow"></div>
-
-                            <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-2xl">
-                                <div className="aspect-square bg-gradient-to-br from-white/20 to-white/5 rounded-2xl flex items-center justify-center relative overflow-hidden">
-                                    <div className="text-center space-y-4">
-                                        <div className="w-24 h-24 mx-auto bg-gradient-to-br from-[#FFB45B] to-[#FF8A00] rounded-full flex items-center justify-center shadow-2xl">
-                                            <svg
-                                                className="w-12 h-12 text-white"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253"
-                                                />
-                                            </svg>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <h3 className="text-white font-bold text-lg">Excellence in Education</h3>
-                                            <p className="text-white/70 text-sm">Building Tomorrow's Leaders</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Floating Elements */}
-                                <div className="absolute -top-4 -right-4 w-8 h-8 bg-[#FFB45B] rounded-full animate-bounce-subtle shadow-lg"></div>
-                                <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-[#FF8A00] rounded-full animate-float shadow-lg"></div>
-                                <div className="absolute top-1/2 -left-6 w-4 h-4 bg-white/50 rounded-full animate-pulse"></div>
-                                <div className="absolute top-1/4 -right-8 w-3 h-3 bg-[#FFAE33] rounded-full animate-float-reverse"></div>
-                            </div>
-                        </div>
-
-                        {/* Floating Cards */}
-                        <div className="absolute -bottom-6 -left-6 bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/20 animate-float">
-                            <div className="flex items-center gap-3">
-                                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                                <span className="text-white text-sm font-medium">Live Classes</span>
-                            </div>
-                        </div>
-
-                        <div className="absolute -top-6 -right-6 bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/20 animate-float-reverse">
-                            <div className="flex items-center gap-3">
-                                <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-                                <span className="text-white text-sm font-medium">Online Learning</span>
-                            </div>
-                        </div>
+                    {/* Social Links */}
+                    <div className={`flex md:flex-col gap-4 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
+                        <a href="#" className="group relative p-3 bg-orange-50 hover:bg-orange-500 text-orange-600 hover:text-white rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                            <FacebookLogoIcon size={24} weight="fill" className="transition-transform duration-300 group-hover:scale-110"/>
+                        </a>
+                        <a href="#" className="group relative p-3 bg-orange-50 hover:bg-orange-500 text-orange-600 hover:text-white rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                            <InstagramLogoIcon size={24} weight="fill" className="transition-transform duration-300 group-hover:scale-110"/>
+                        </a>
+                        <a href="#" className="group relative p-3 bg-orange-50 hover:bg-orange-500 text-orange-600 hover:text-white rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                            <TwitterLogoIcon size={24} weight="fill" className="transition-transform duration-300 group-hover:scale-110"/>
+                        </a>
+                        <a href="#" className="group relative p-3 bg-orange-50 hover:bg-orange-500 text-orange-600 hover:text-white rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                            <YoutubeLogoIcon size={24} weight="fill" className="transition-transform duration-300 group-hover:scale-110"/>
+                        </a>
                     </div>
                 </div>
-            </div>
-
-            {/* Bottom Gradient Fade */}
-            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent"></div>
-        </section>
+            </section>
+        </main>
     );
 }
