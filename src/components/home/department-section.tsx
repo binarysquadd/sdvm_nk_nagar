@@ -47,21 +47,28 @@ export default function DepartmentSection() {
     const currentItem = FEATURE_DEPARTMENT_DATA[currentIndex];
     const transitionItem = FEATURE_DEPARTMENT_DATA[transitionIndex]; // 👈 use for overlay
 
+    const IconComponent = currentItem.icon;
+
     return (
         <section className="px-4 py-24 mx-auto max-w-7xl relative">
-            <div className="flex items-center justify-center mb-12 gap-2">
-                <div className="w-6 h-1 bg-[#FF8A00]/60 rounded-full"></div>
-                <div>
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center">
-                        honor's
-                    </h2>
+            <div className="text-center mb-12">
+                <div className="flex items-center justify-center mb-2 gap-2">
+                    <div className="w-6 h-1 bg-[#FF8A00]/60 rounded-full"></div>
+                    <div>
+                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center">
+                           Honor's
+                        </h2>
+                    </div>
+                    <div className="w-6 h-1 bg-[#FF8A00]/60 rounded-full"></div>
                 </div>
-                <div className="w-6 h-1 bg-[#FF8A00]/60 rounded-full"></div>
+                <p className="text-lg text-[#565451] max-w-3xl mx-auto">
+                    Explore our world-class facilities designed to enhance your
+                    educational experience
+                </p>
             </div>
 
             {/* Main Content */}
             <div className="relative overflow-hidden">
-                {/* Animated Overlay with Dept name + icon */}
                 <div
                     className={`absolute inset-0 flex items-center justify-center z-10 transition-transform duration-700 ease-in-out ${
                         isTransitioning
@@ -69,7 +76,10 @@ export default function DepartmentSection() {
                             : slideDirection === 'right'
                                 ? '-translate-x-full'
                                 : 'translate-x-full'
-                    } bg-gradient-to-r from-orange-500 to-orange-600`}
+                    }`}
+                    style={{
+                        background: 'linear-gradient(135deg, #FF8A00, #FFB45B)', // 👈 custom gradient
+                    }}
                 >
                     <div
                         className={`flex flex-col items-center text-white text-center transform transition-all duration-500 ${
@@ -77,13 +87,14 @@ export default function DepartmentSection() {
                         }`}
                     >
                         {/* Icon */}
-                        <transitionItem.icon size={60} className="mb-4 animate-bounce" />
+                        <transitionItem.icon size={60} className="mb-4 animate-bounce"/>
                         {/* Dept Name */}
                         <h3 className="text-2xl md:text-4xl font-bold tracking-wide">
                             {transitionItem.department}
                         </h3>
                     </div>
                 </div>
+
 
                 {/* Content */}
                 <div
@@ -94,7 +105,9 @@ export default function DepartmentSection() {
                     }`}
                 >
                     <div className="space-y-6">
-                        <div className="inline-block">
+                        <div className="inline-block lg:flex gap-1 text-orange-500">
+                            {IconComponent &&
+                                <IconComponent size={22} className="inline-block ml-2 mt-1 animate-bounce"/>}
                             <h1 className="text-orange-500 font-semibold text-lg uppercase tracking-wide mb-2">
                                 {currentItem.department}
                             </h1>
@@ -106,7 +119,8 @@ export default function DepartmentSection() {
                             {currentItem.description}
                         </p>
                         <div className="flex justify-center md:justify-start">
-                            <button className="group inline-flex items-center gap-2 px-6 py-3 font-medium border border-orange-300 bg-white text-orange-500 rounded-xl shadow-[2px_2px_0px_orange] transition-all hover:bg-orange-500 hover:text-white hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
+                            <button
+                                className="group inline-flex items-center gap-2 px-6 py-3 font-medium border border-orange-300 bg-white text-orange-500 rounded-xl shadow-[2px_2px_0px_orange] transition-all hover:bg-orange-500 hover:text-white hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
                                 Discover Now
                                 <svg
                                     className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
@@ -142,14 +156,14 @@ export default function DepartmentSection() {
                                 disabled={isTransitioning}
                                 className="bg-orange-500 hover:bg-orange-600 text-white p-2 rounded-full shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50"
                             >
-                                <CaretLeftIcon size={20} />
+                                <CaretLeftIcon size={20}/>
                             </button>
                             <button
                                 onClick={handleNext}
                                 disabled={isTransitioning}
                                 className="bg-orange-500 hover:bg-orange-600 text-white p-2 rounded-full shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50"
                             >
-                                <CaretRightIcon size={20} />
+                                <CaretRightIcon size={20}/>
                             </button>
                         </div>
                     </div>
