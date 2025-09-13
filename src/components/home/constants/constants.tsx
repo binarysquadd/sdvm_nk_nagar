@@ -13,7 +13,9 @@ import {
     BookIcon,
     BedIcon,
     ForkKnifeIcon,
-    HandsPrayingIcon
+    HandsPrayingIcon,
+    EnvelopeIcon,
+    LinkedinLogoIcon,
 } from "@phosphor-icons/react";
 
 export interface SubLab {
@@ -109,7 +111,7 @@ export const INFRA_DATA: InfraItem[] = [
         description:
             "A vibrant and eco-friendly campus that provides the perfect environment for learning, collaboration, and growth.",
         image:
-            "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&h=400&fit=crop",
+            "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&h=800&fit=crop", // ✅ modern campus aerial
         icon: BuildingIcon,
     },
     {
@@ -118,7 +120,7 @@ export const INFRA_DATA: InfraItem[] = [
         description:
             "State-of-the-art laboratories equipped with the latest technology to support practical learning and research.",
         image:
-            "https://images.unsplash.com/photo-1581091215367-59ab6b128c94?w=600&h=400&fit=crop",
+            "https://images.unsplash.com/photo-1581091012184-5c1c7bcd48f5?w=1200&h=800&fit=crop", // ✅ lab setup
         icon: FlaskIcon,
         subLabs: [
             {
@@ -126,56 +128,63 @@ export const INFRA_DATA: InfraItem[] = [
                 name: "Computer Science",
                 to: "/computer-science",
                 icon: LaptopIcon,
-                image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop",
-                description: 'this is computer science'
+                image:
+                    "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&h=800&fit=crop", // ✅ coding desk
+                description: "Hands-on learning in modern computer labs with high-performance systems.",
             },
             {
                 id: 2,
                 name: "Physics",
                 to: "/physics",
                 icon: AtomIcon,
-                image: "https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?w=600&h=400&fit=crop",
-                description: 'this is physics'
+                image:
+                    "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1200&h=800&fit=crop", // ✅ physics experiment
+                description: "Explore the principles of the universe with advanced physics labs.",
             },
             {
                 id: 3,
                 name: "Chemistry",
                 to: "/chemistry",
                 icon: FlaskIcon,
-                image: "https://images.unsplash.com/photo-1581090700227-4c4f50a6e52b?w=600&h=400&fit=crop",
-                description: 'this is Chemistry'
+                image:
+                    "https://images.unsplash.com/photo-1581091215367-59ab6b128c94?w=1200&h=800&fit=crop", // ✅ chemistry setup
+                description: "Well-equipped labs for organic, inorganic, and analytical chemistry.",
             },
             {
                 id: 4,
                 name: "Geology",
                 to: "/geology",
                 icon: MountainsIcon,
-                image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&h=400&fit=crop",
-                description: 'this is geology'
+                image:
+                    "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200&h=800&fit=crop", // ✅ rock formations
+                description: "Study earth sciences with geological samples and modern tools.",
             },
             {
                 id: 5,
                 name: "Botany",
                 to: "/botany",
                 icon: LeafIcon,
-                image: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=600&h=400&fit=crop",
-                description: 'this is botany'
+                image:
+                    "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=1200&h=800&fit=crop", // ✅ plant research
+                description: "Discover plant biology with greenhouse and botanical lab facilities.",
             },
             {
                 id: 6,
                 name: "Math",
                 to: "/math",
                 icon: SigmaIcon,
-                image: "https://images.unsplash.com/photo-1509223197845-458d87318791?w=600&h=400&fit=crop",
-                description: 'this is Math'
+                image:
+                    "https://images.unsplash.com/photo-1509223197845-458d87318791?w=1200&h=800&fit=crop", // ✅ equations on board
+                description: "A hub for logic, computation, and advanced mathematical problem solving.",
             },
             {
                 id: 7,
                 name: "Zoology",
                 to: "/zoology",
                 icon: PawPrintIcon,
-                image: "https://images.unsplash.com/photo-1616147353431-f8b8d1b1b845?w=600&h=400&fit=crop",
-                description: 'this is zoology'
+                image:
+                    "https://images.unsplash.com/photo-1616147353431-f8b8d1b1b845?w=1200&h=800&fit=crop", // ✅ wildlife specimen
+                description: "Dedicated labs for the study of animals and biodiversity.",
             },
         ],
     },
@@ -185,7 +194,7 @@ export const INFRA_DATA: InfraItem[] = [
         description:
             "A modern library with an extensive collection of books, journals, and digital resources for students and faculty.",
         image:
-            "https://images.unsplash.com/photo-1513475382585-d06e58bcb0ea?w=600&h=400&fit=crop",
+            "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&h=800&fit=crop", // ✅ library shelves
         icon: BookIcon,
     },
     {
@@ -194,7 +203,7 @@ export const INFRA_DATA: InfraItem[] = [
         description:
             "Comfortable and secure hostel facilities that create a home-away-from-home experience for students.",
         image:
-            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop", // ✅ student dorm
         icon: BedIcon,
     },
     {
@@ -203,7 +212,7 @@ export const INFRA_DATA: InfraItem[] = [
         description:
             "A lively canteen serving hygienic and nutritious meals, snacks, and refreshments throughout the day.",
         image:
-            "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop",
+            "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=1200&h=800&fit=crop", // ✅ food & drinks
         icon: ForkKnifeIcon,
     },
     {
@@ -212,24 +221,140 @@ export const INFRA_DATA: InfraItem[] = [
         description:
             "A serene prayer hall that provides students and staff with a peaceful place for reflection and spirituality.",
         image:
-            "https://images.unsplash.com/photo-1578301978693-85b6fdf5f4c6?w=600&h=400&fit=crop",
+            "https://images.unsplash.com/photo-1578301978693-85b6fdf5f4c6?w=1200&h=800&fit=crop", // ✅ prayer interior
         icon: HandsPrayingIcon,
     },
 ];
 
 
-// Icon mapping
-export const iconMap = {
-    BuildingIcon: BuildingIcon,
-    FlaskIcon: FlaskIcon,
-    BookIcon: BookIcon,
-    BedIcon: BedIcon,
-    ForkKnifeIcon: ForkKnifeIcon,
-    HandsPrayingIcon: HandsPrayingIcon,
-    LaptopIcon: LaptopIcon,
-    AtomIcon: AtomIcon,
-    MountainsIcon: MountainsIcon,
-    LeafIcon: LeafIcon,
-    SigmaIcon: SigmaIcon,
-    PawPrintIcon: PawPrintIcon,
-};
+export const teamMembers = [
+    {
+        name: "Amélie Laurent",
+        title: "Founder & CEO",
+        summary: "Former co-founder of Opendoor. Early staff at Spotify and Clearbit.",
+        avatarUrl: "https://www.untitledui.com/images/avatars/amelie-laurent?fm=webp&q=80",
+        socials: [
+            {
+                icon: EnvelopeIcon,
+                href: "https://x.com/",
+            },
+            {
+                icon: LinkedinLogoIcon,
+                href: "https://www.linkedin.com/",
+            },
+        ],
+    },
+    {
+        name: "Nikolas Gibbons",
+        title: "Engineering Manager",
+        summary: "Lead engineering teams at Figma, Pitch, and Protocol Labs.",
+        avatarUrl: "https://www.untitledui.com/images/avatars/nikolas-gibbons?fm=webp&q=80",
+        socials: [
+            {
+                icon: EnvelopeIcon,
+                href: "https://x.com/",
+            },
+            {
+                icon: LinkedinLogoIcon,
+                href: "https://www.linkedin.com/",
+            },
+        ],
+    },
+    {
+        name: "Sienna Hewitt",
+        title: "Product Manager",
+        summary: "Former PM for Linear, Lambda School, and On Deck.",
+        avatarUrl: "https://www.untitledui.com/images/avatars/sienna-hewitt?fm=webp&q=80",
+        socials: [
+            {
+                icon: EnvelopeIcon,
+                href: "https://x.com/",
+            },
+            {
+                icon: LinkedinLogoIcon,
+                href: "https://www.linkedin.com/",
+            },
+        ],
+    },
+    {
+        name: "Lily-Rose Chedjou",
+        title: "Frontend Developer",
+        summary: "Former frontend dev for Linear, Coinbase, and Postscript.",
+        avatarUrl: "https://www.untitledui.com/images/avatars/lily-rose-chedjou?fm=webp&q=80",
+        socials: [
+            {
+                icon: EnvelopeIcon,
+                href: "https://x.com/",
+            },
+            {
+                icon: LinkedinLogoIcon,
+                href: "https://www.linkedin.com/",
+            },
+        ],
+    },
+    {
+        name: "Zahra Christensen",
+        title: "Backend Developer",
+        summary: "Lead backend dev at Clearbit. Former Clearbit and Loom.",
+        avatarUrl: "https://www.untitledui.com/images/avatars/zahra-christensen?fm=webp&q=80",
+        socials: [
+            {
+                icon: EnvelopeIcon,
+                href: "https://x.com/",
+            },
+            {
+                icon: LinkedinLogoIcon,
+                href: "https://www.linkedin.com/",
+            },
+        ],
+    },
+    {
+        name: "Caitlyn King",
+        title: "Product Designer",
+        summary: "Founding design team at Figma. Former Pleo, Stripe, and Tile.",
+        avatarUrl: "https://www.untitledui.com/images/avatars/caitlyn-king?fm=webp&q=80",
+        socials: [
+            {
+                icon: EnvelopeIcon,
+                href: "https://x.com/",
+            },
+            {
+                icon: LinkedinLogoIcon,
+                href: "https://www.linkedin.com/",
+            },
+        ],
+    },
+    {
+        name: "Zaid Schwartz",
+        title: "UX Researcher",
+        summary: "Lead user research for Slack. Contractor for Netflix and Udacity.",
+        avatarUrl: "https://www.untitledui.com/images/avatars/zaid-schwartz?fm=webp&q=80",
+        socials: [
+            {
+                icon: EnvelopeIcon,
+                href: "https://x.com/",
+            },
+            {
+                icon: LinkedinLogoIcon,
+                href: "https://www.linkedin.com/",
+            },
+        ],
+    },
+    {
+        name: "Marco Kelly",
+        title: "Customer Success",
+        summary: "Lead CX at Wealthsimple. Former PagerDuty and Sqreen.",
+        avatarUrl: "https://www.untitledui.com/images/avatars/marco-kelly?fm=webp&q=80",
+        socials: [
+            {
+                icon: EnvelopeIcon,
+                href: "https://x.com/",
+            },
+            {
+                icon: LinkedinLogoIcon,
+                href: "https://www.linkedin.com/",
+            },
+        ],
+    },
+];
+
