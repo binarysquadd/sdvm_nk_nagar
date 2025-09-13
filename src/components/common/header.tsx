@@ -27,7 +27,7 @@ export const Header = () => {
 
     const navigation: NavItem[] = [
         { name: 'Home', to: '/' },
-        { name: `Honer's`, children: [
+        { name: `honor's`, children: [
                 {name: 'Computer Science', to: '/computer-science'},
                 {name: 'Physics', to: '/physics'},
                 {name: 'Chemistry', to: '/chemistry'},
