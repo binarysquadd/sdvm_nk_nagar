@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { EnvelopeIcon, LinkedinLogoIcon, IdentificationBadgeIcon, BookOpenIcon, UsersIcon, GraduationCapIcon } from "@phosphor-icons/react";
+import { EnvelopeIcon, LinkedinLogoIcon, MedalIcon, BookOpenIcon, UsersIcon, GraduationCapIcon } from "@phosphor-icons/react";
 import {facultyData} from "../constants/constants.tsx";
 
 
@@ -158,7 +158,7 @@ export default function Faculty() {
                                     </div>
 
                                     <div className="flex items-start gap-3">
-                                        <IdentificationBadgeIcon className="w-4 h-4 text-[#FF8A00] mt-1 flex-shrink-0" />
+                                        <MedalIcon className="w-4 h-4 text-[#FF8A00] mt-1 flex-shrink-0" />
                                         <div>
                                             <p className="text-xs text-gray-500 uppercase tracking-wide">Qualification</p>
                                             <p className="text-sm font-medium text-gray-800">{member.qualification}</p>
