@@ -358,3 +358,224 @@ export const teamMembers = [
     },
 ];
 
+
+
+// Achievement stats data
+export const achievementStats = [
+    {
+        number: "99.9%",
+        label: "Uptime Guarantee",
+        icon: "⚡"
+    },
+    {
+        number: "4,000+",
+        label: "Companies Trust Us",
+        icon: "🏢"
+    },
+    {
+        number: "50M+",
+        label: "Transactions Processed",
+        icon: "📊"
+    },
+    {
+        number: "24/7",
+        label: "Customer Support",
+        icon: "🛡️"
+    }
+];
+
+// Company logos data
+export const companyLogos = [
+    {
+        name: "Odeaolabs",
+        url: "https://images.unsplash.com/photo-1549924231-f129b911e442?w=200&h=80&fit=crop&crop=center"
+    },
+    {
+        name: "Kintsugi",
+        url: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=80&fit=crop&crop=center"
+    },
+    {
+        name: "Stackedlab",
+        url: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=200&h=80&fit=crop&crop=center"
+    },
+    {
+        name: "Magnolia",
+        url: "https://images.unsplash.com/photo-1553484771-371a605b060b?w=200&h=80&fit=crop&crop=center"
+    },
+    {
+        name: "Warpspeed",
+        url: "https://images.unsplash.com/photo-1516387938699-a93567ec168e?w=200&h=80&fit=crop&crop=center"
+    },
+    {
+        name: "Sisyphus",
+        url: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=200&h=80&fit=crop&crop=center"
+    }
+];
+
+export interface Event {
+    id: number;
+    image: string;
+    category: string;
+    title: string;
+    description: string;
+    author: string;
+    authorImage: string;
+    date: string;
+}
+
+export const events: Event[] = [
+    {
+        id: 1,
+        title: "Modern Library Complex",
+        description:
+            "State-of-the-art library with digital resources, quiet study areas, and collaborative spaces for enhanced learning.",
+        category: "Academic",
+        author: "Dr. Sarah Wilson",
+        authorImage:
+            "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+        date: "Library Services",
+        image:
+            "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=400&fit=crop",
+    },
+    {
+        id: 2,
+        title: "Science Research Labs",
+        description:
+            "Cutting-edge laboratories equipped with the latest technology for hands-on research and experimentation.",
+        category: "Research",
+        author: "Prof. Michael Chen",
+        authorImage:
+            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+        date: "Research Facility",
+        image:
+            "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&h=400&fit=crop",
+    },
+    {
+        id: 3,
+        title: "Student Recreation Center",
+        description:
+            "Complete fitness and wellness facility with modern equipment, sports courts, and recreational activities.",
+        category: "Recreation",
+        author: "Emily Rodriguez",
+        authorImage:
+            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+        date: "Wellness Center",
+        image:
+            "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
+    },
+    {
+        id: 4,
+        title: "Innovation Hub",
+        description:
+            "Collaborative workspace for entrepreneurship, innovation, and technology development projects.",
+        category: "Innovation",
+        author: "Alex Thompson",
+        authorImage:
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+        date: "Tech Center",
+        image:
+            "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop",
+    },
+    {
+        id: 5,
+        title: "Auditorium Complex",
+        description:
+            "Large auditorium with advanced sound systems and seating for cultural, academic, and professional events.",
+        category: "Facilities",
+        author: "Rachel Green",
+        authorImage:
+            "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=150&h=150&fit=crop&crop=face",
+        date: "Event Space",
+        image:
+            "https://images.unsplash.com/photo-1503428593586-e225b39bddfe?w=600&h=400&fit=crop",
+    },
+    {
+        id: 6,
+        title: "Central Cafeteria",
+        description:
+            "Spacious dining area offering nutritious meals, snacks, and beverages with hygienic standards.",
+        category: "Cafeteria",
+        author: "John Miller",
+        authorImage:
+            "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
+        date: "Food Court",
+        image:
+            "https://images.unsplash.com/photo-1520072959219-c595dc870360?w=600&h=400&fit=crop",
+    },
+    {
+        id: 7,
+        title: "Digital Learning Center",
+        description:
+            "Smart classrooms with interactive boards and online learning tools to support hybrid education.",
+        category: "Academic",
+        author: "Sophia Lee",
+        authorImage:
+            "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
+        date: "Learning Facility",
+        image:
+            "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?w=600&h=400&fit=crop",
+    },
+    {
+        id: 8,
+        title: "Green Campus Park",
+        description:
+            "Beautiful green spaces with walking tracks, eco-friendly initiatives, and relaxation zones for students.",
+        category: "Environment",
+        author: "Daniel Smith",
+        authorImage:
+            "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face",
+        date: "Outdoor Space",
+        image:
+            "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf?w=600&h=400&fit=crop",
+    },
+    {
+        id: 9,
+        title: "Hostel Accommodation",
+        description:
+            "Comfortable and secure hostel facilities with modern amenities for outstation students.",
+        category: "Residential",
+        author: "Priya Mehta",
+        authorImage:
+            "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=150&h=150&fit=crop&crop=face",
+        date: "Student Housing",
+        image:
+            "https://images.unsplash.com/photo-1560448075-bb485b4c4f2d?w=600&h=400&fit=crop",
+    },
+    {
+        id: 10,
+        title: "Sports Complex",
+        description:
+            "International standard sports complex with indoor and outdoor facilities for multiple games and athletics.",
+        category: "Sports",
+        author: "Vikram Patel",
+        authorImage:
+            "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&crop=face",
+        date: "Athletics Center",
+        image:
+            "https://images.unsplash.com/photo-1605296867724-fa87a8ef53fd?w=600&h=400&fit=crop",
+    },
+];
+
+export const faqs = [
+    {
+        question: "Why doesn't my CSS, which is valid, render correctly?",
+        answer:
+            "Browsers use the DOCTYPE declaration to choose whether to show the document using a mode that is more compatible with Web standards or with old browser bugs. Using a correct and modern DOCTYPE declaration at the start of your HTML will improve browser standards compliance.",
+    },
+    {
+        question: "CSS and JavaScript accessibility best practices?",
+        answer:
+            "HTML elements can have an id and/or class attribute. The id attribute assigns a name to the element it is applied to, and for valid markup, there can be only one element with that name. The class attribute assigns a class name to the element, and that name can be used on many elements within the page. CSS allows you to apply styles to particular id and/or class names.",
+    },
+    {
+        question: "What do the -moz-*, -ms-*, -webkit-*, -o-* and -khtml-* properties do?",
+        answer:
+            "The use of such properties on production websites is not recommended — they have already created a huge web compatibility mess. For example, many developers only using the -webkit- prefixed version of a property when the non-prefixed version is supported across all browsers meant that a feature relying on that property would break in non-webkit-based browsers, completely needlessly.",
+    },
+    {
+        question: "What is the difference between id and class?",
+        answer:
+            "HTML elements can have an id and/or class attribute. The id attribute assigns a name to the element it is applied to, and for valid markup, there can be only one element with that name. The class attribute assigns a class name to the element, and that name can be used on many elements within the page.",
+    },
+];
+

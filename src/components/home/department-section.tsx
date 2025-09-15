@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { CaretRightIcon, CaretLeftIcon } from "@phosphor-icons/react";
 import { FEATURE_DEPARTMENT_DATA } from "./constants/constants.tsx";
 
@@ -7,6 +7,25 @@ export default function DepartmentSection() {
     const [transitionIndex, setTransitionIndex] = useState(0); // 👈 new state
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [slideDirection, setSlideDirection] = useState<'right' | 'left'>('right');
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
 
     // Auto-rotate every 5 seconds
     useEffect(() => {
@@ -50,18 +69,27 @@ export default function DepartmentSection() {
     const IconComponent = currentItem.icon;
 
     return (
-        <section className="px-4 py-24 mx-auto max-w-7xl relative">
+        <section ref={sectionRef} className="px-4 py-24 mx-auto max-w-7xl relative overflow-hidden">
             <div className="text-center mb-12">
-                <div className="flex items-center justify-center mb-2 gap-2">
-                    <div className="w-6 h-1 bg-[#FF8A00]/60 rounded-full"></div>
+                <div className={`flex items-center justify-center mb-2 gap-2 transition-all duration-1000 ease-out ${isVisible
+                    ? 'opacity-100 transform translate-y-0'
+                    : 'opacity-0 transform translate-y-8'
+                }`}>
+                    <div className={`h-1 bg-[#FF8A00]/60 rounded-full transition-all duration-1000 ease-out delay-200 ${isVisible ? 'w-6' : 'w-0'}`}></div>
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center">
-                           Honor's
+                        <h2 className={`text-3xl md:text-4xl font-bold text-gray-900 text-center transition-all duration-1000 ease-out delay-300 ${isVisible
+                            ? 'opacity-100 transform translate-y-0'
+                            : 'opacity-0 transform translate-y-4'
+                        }`}>
+                            Honor's
                         </h2>
                     </div>
-                    <div className="w-6 h-1 bg-[#FF8A00]/60 rounded-full"></div>
+                    <div className={`h-1 bg-[#FF8A00]/60 rounded-full transition-all duration-1000 ease-out delay-200 ${isVisible ? 'w-6' : 'w-0'}`}></div>
                 </div>
-                <p className="text-lg text-[#565451] max-w-3xl mx-auto">
+                <p className={`text-lg text-[#565451] max-w-3xl mx-auto transition-all duration-1000 ease-out delay-500 ${isVisible
+                    ? 'opacity-100 transform translate-y-0'
+                    : 'opacity-0 transform translate-y-4'
+                }`}>
                     Explore our world-class facilities designed to enhance your
                     educational experience
                 </p>
@@ -98,11 +126,14 @@ export default function DepartmentSection() {
 
                 {/* Content */}
                 <div
-                    className={`grid items-center grid-cols-1 md:grid-cols-2 gap-y-10 md:gap-y-32 gap-x-10 md:gap-x-24 transition-all duration-500 ${
+                    className={`grid items-center grid-cols-1 md:grid-cols-2 gap-y-10 md:gap-y-32 gap-x-10 md:gap-x-24 transition-all duration-500 ease-out ${
                         isTransitioning
                             ? 'opacity-0 transform scale-95'
-                            : 'opacity-100 transform scale-100'
+                            : isVisible
+                                ? 'opacity-100 transform scale-100 translate-y-0'
+                                : 'opacity-0 transform scale-95 translate-y-8'
                     }`}
+                    style={{ transitionDelay: isVisible ? '100ms' : '0ms' }}
                 >
                     <div className="space-y-6">
                         <div className="inline-block lg:flex gap-1 text-orange-500">
@@ -120,7 +151,7 @@ export default function DepartmentSection() {
                         </p>
                         <div className="flex justify-center md:justify-start">
                             <button
-                                className="group inline-flex items-center gap-2 px-6 py-3 font-medium border border-orange-300 bg-white text-orange-500 rounded-xl shadow-[2px_2px_0px_orange] transition-all hover:bg-orange-500 hover:text-white hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
+                                className="group cursor-pointer inline-flex items-center gap-2 px-6 py-3 font-medium border border-orange-300 bg-white text-orange-500 rounded-xl shadow-[2px_2px_0px_orange] transition-all hover:bg-orange-500 hover:text-white hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
                                 Discover Now
                                 <svg
                                     className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
@@ -154,14 +185,14 @@ export default function DepartmentSection() {
                             <button
                                 onClick={handlePrev}
                                 disabled={isTransitioning}
-                                className="bg-orange-500 hover:bg-orange-600 text-white p-2 rounded-full shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50"
+                                className="bg-orange-500 cursor-pointer hover:bg-orange-600 text-white p-2 rounded-full shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50"
                             >
                                 <CaretLeftIcon size={20}/>
                             </button>
                             <button
                                 onClick={handleNext}
                                 disabled={isTransitioning}
-                                className="bg-orange-500 hover:bg-orange-600 text-white p-2 rounded-full shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50"
+                                className="bg-orange-500 cursor-pointer hover:bg-orange-600 text-white p-2 rounded-full shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50"
                             >
                                 <CaretRightIcon size={20}/>
                             </button>
@@ -171,7 +202,10 @@ export default function DepartmentSection() {
             </div>
 
             {/* Dots Indicator */}
-            <div className="flex justify-center mt-12 space-x-3">
+            <div className={`flex justify-center mt-12 space-x-3 transition-all duration-700 ease-out ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+                 style={{ transitionDelay: '1200ms' }}>
                 {FEATURE_DEPARTMENT_DATA.map((_, index) => (
                     <button
                         key={index}
@@ -186,6 +220,30 @@ export default function DepartmentSection() {
                         }`}
                     />
                 ))}
+            </div>
+
+            {/* Floating decorative elements */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div
+                    className={`
+                        absolute top-1/4 left-10 w-2 h-2 bg-[#FF8A00]/30 rounded-full
+                        transition-all duration-2000 ease-out delay-1400
+                        ${isVisible
+                        ? 'opacity-100 transform translate-y-0 animate-pulse'
+                        : 'opacity-0 transform translate-y-4'
+                    }
+                    `}
+                ></div>
+                <div
+                    className={`
+                        absolute bottom-1/3 right-16 w-3 h-3 bg-[#FFB45B]/20 rounded-full
+                        transition-all duration-2000 ease-out delay-1600
+                        ${isVisible
+                        ? 'opacity-100 transform translate-y-0 animate-pulse'
+                        : 'opacity-0 transform translate-y-4'
+                    }
+                    `}
+                ></div>
             </div>
         </section>
     );

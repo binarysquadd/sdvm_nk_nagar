@@ -1,5 +1,5 @@
-import { useState } from "react";
-import type { InfraItem, SubLab } from "./constants/constants.tsx";
+import {useEffect, useState, useRef} from "react";
+import {type InfraItem, type SubLab} from "./constants/constants.tsx";
 import {INFRA_DATA} from "./constants/constants.tsx";
 
 type SelectedItem = InfraItem | SubLab;
@@ -9,6 +9,30 @@ export default function InfraSection() {
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(true);
     const [parentLab, setParentLab] = useState<InfraItem | null>(null);
+    const [isVisible, setIsVisible] = useState(false);
+    const [visibleItem, setVisibleItem] = useState<number []>([]);
+    const sectionRef = useRef<HTMLElement>(null);
+
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if(entry.isIntersecting){
+                    setIsVisible(true);
+                    INFRA_DATA.forEach((_, index) => {
+                        setTimeout(() => {
+                            setVisibleItem(prev => [...prev, index]);
+                        }, index * 150);
+                    })
+                }
+            },
+            {threshold: 0.1}
+        );
+        if(sectionRef.current){
+            observer.observe(sectionRef.current);
+        }
+        return () => observer.disconnect();
+    }, []);
 
     const handleCardClick = (item: InfraItem) => {
         if (item.id === selectedItem.id) return;
@@ -49,20 +73,34 @@ export default function InfraSection() {
     const showSubLabs = !isSubLab && selectedItem.id === 2 && 'subLabs' in selectedItem && selectedItem.subLabs;
 
     return (
-        <section className="py-16 bg-[#F5F4F4]">
+        <section ref={sectionRef} className="py-16 bg-[#F5F4F4] relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <div className="flex items-center justify-center mb-2 gap-2">
-                        <div className="w-6 h-1 bg-[#FF8A00]/60 rounded-full"></div>
+                    <div
+                        className={`flex items-center justify-center mb-2 gap-2 transition-all duration-1000 ease-out ${isVisible
+                            ? 'opacity-100 transform translate-y-0'
+                            : 'opacity-0 transform translate-y-8'
+                        }`}>
+                        <div
+                            className={`h-1 bg-[#FF8A00]/60 rounded-full transition-all duration-1000 ease-out delay-200 ${isVisible ? 'w-6' : 'w-0'}`}></div>
                         <div>
-                            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center">
+                            <h2 className={`text-3xl md:text-4xl font-bold text-gray-900 text-center transition-all duration-1000 ease-out delay-300 ${isVisible
+                                ? 'opacity-100 transform translate-y-0'
+                                : 'opacity-0 transform translate-y-4'
+                            }`}
+                            >
                                 Campus Infrastructure
                             </h2>
                         </div>
-                        <div className="w-6 h-1 bg-[#FF8A00]/60 rounded-full"></div>
+                        <div
+                            className={`h-1 bg-[#FF8A00]/60 rounded-full transition-all duration-1000 ease-out delay-200 ${isVisible ? 'w-6' : 'w-0'}`}
+                        ></div>
                     </div>
-                    <p className="text-lg text-[#565451] max-w-3xl mx-auto">
+                    <p className={`text-lg text-[#565451] max-w-3xl mx-auto transition-all duration-1000 ease-out delay-500 ${isVisible
+                        ? 'opacity-100 transform translate-y-0'
+                        : 'opacity-0 transform translate-y-4'
+                    }`}>
                         Explore our world-class facilities designed to enhance your
                         educational experience
                     </p>
@@ -70,7 +108,7 @@ export default function InfraSection() {
 
                 {/* Navigation Cards */}
                 <div className="flex flex-wrap justify-center gap-4 mb-12">
-                    {INFRA_DATA.map((item) => {
+                    {INFRA_DATA.map((item, index) => {
                         const CardIcon = item.icon;
                         const isActive = !isSubLab && selectedItem.id === item.id;
 
@@ -78,9 +116,14 @@ export default function InfraSection() {
                             <button
                                 key={item.id}
                                 onClick={() => handleCardClick(item)}
-                                className={`group relative px-6 py-3 rounded-xl border-2 transition-all duration-300 ${isActive
-                                        ? "border-[#FF8A00] bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] text-white shadow-lg"
-                                        : "border-gray-200 bg-white text-[#12100C] hover:border-[#FFB45B] hover:shadow-md"}`}>
+                                className={`group relative px-6 py-3 rounded-xl border-2 transition-all duration-700 ease-out ${
+                                    visibleItem.includes(index)
+                                        ? 'opacity-100 transform translate-y-0 scale-100'
+                                        : 'opacity-0 transform translate-y-8 scale-95'
+                                } ${isActive
+                                    ? "border-[#FF8A00] bg-gradient-to-r from-[#FF8A00] to-[#FFB45B] text-white shadow-lg"
+                                    : "border-gray-200 bg-white text-[#12100C] hover:border-[#FFB45B] hover:shadow-md"}`}
+                                style={{transitionDelay: `100ms`}}>
                                 <div className="flex flex-col items-center space-y-2 min-w-[100px]">
                                     <CardIcon
                                         className={`w-6 h-6 transition-colors duration-300 ${
@@ -97,13 +140,14 @@ export default function InfraSection() {
                 </div>
 
                 {/* Detail Section */}
-                <div className={`grid lg:grid-cols-2 gap-12 items-center transition-all duration-500 ease-in-out ${isTransitioning ? "opacity-0 transform translate-y-4" : "opacity-100 transform translate-y-0"}`}
+                <div
+                    className={`grid lg:grid-cols-2 gap-12 items-center transition-all duration-500 ease-in-out ${isTransitioning ? "opacity-0 transform translate-y-4" : "opacity-100 transform translate-y-0"}`}
                 >
                     {/* Content */}
                     <div className="space-y-6">
                         <div className="flex items-center space-x-4">
                             <div className="p-3 bg-[#FFB45B]/20 rounded-2xl">
-                                <IconComponent className="w-8 h-8 text-[#FF8A00]" />
+                                <IconComponent className="w-8 h-8 text-[#FF8A00]"/>
                             </div>
                             <h3 className="text-3xl font-bold text-[#12100C]">
                                 {currentTitle}
@@ -128,10 +172,12 @@ export default function InfraSection() {
                                                 key={index}
                                                 onClick={() => handleSubLabClick(lab, selectedItem)}
                                                 className="group p-4 bg-white rounded-xl border border-gray-200 hover:border-[#FFB45B] hover:shadow-md transition-all duration-300 cursor-pointer"
-                                                >
+                                            >
                                                 <div className="flex flex-col items-center space-y-2 text-center">
-                                                    <LabIcon className="w-6 h-6 text-[#FF8A00] group-hover:text-[#FFB45B] transition-colors duration-200" />
-                                                    <span className="text-sm font-medium text-[#12100C] group-hover:text-black">
+                                                    <LabIcon
+                                                        className="w-6 h-6 text-[#FF8A00] group-hover:text-[#FFB45B] transition-colors duration-200"/>
+                                                    <span
+                                                        className="text-sm font-medium text-[#12100C] group-hover:text-black">
                                                     {lab.name}
                                                     </span>
                                                 </div>
@@ -161,7 +207,8 @@ export default function InfraSection() {
                             )}
 
                             {/* Discover button */}
-                            <button className="group inline-flex items-center justify-center gap-2 px-6 py-3 font-medium border border-orange-300 bg-white text-orange-500 rounded-xl shadow-[2px_2px_0px_orange] transition-all hover:bg-orange-500 hover:text-white hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]"
+                            <button
+                                className="group inline-flex items-center justify-center gap-2 px-6 py-3 font-medium border border-orange-300 bg-white text-orange-500 rounded-xl shadow-[2px_2px_0px_orange] transition-all hover:bg-orange-500 hover:text-white hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]"
                             >
                                 Discover Now
                                 <svg
